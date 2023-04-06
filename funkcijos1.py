@@ -46,7 +46,7 @@ def stringas_atbulai(stringas):
     return stringas[::-1]
 
 
-print(stringas_atbulai("Donatas Noreika"))
+# print(stringas_atbulai("Donatas Noreika"))
 
 
 # 5. Atspausdintų, kiek paduotame stringe yra žodžių, didžiųjų ir mažųjų raidžių, skaičių.
@@ -66,7 +66,7 @@ def info_apie_sakini(stringas):
     return f"Didžiosios: {didziosios}, mažosios: {mazosios}, skaičiai: {skaiciai}"
 
 
-# info_apie_sakini("Laba diena laba diena lab 522")
+# print(info_apie_sakini("Laba diena laba diena lab 522"))
 
 
 # 6. Gražintų sąrašą tik su unikaliais paduoto sąrašo elementais.
@@ -109,7 +109,7 @@ def ar_pirminis(skaicius):
 
 def isrikiuoti_nuo_galo(sakinys):
     zodziai = sakinys.split()[::-1]
-    return " # ".join(zodziai)
+    return " ".join(zodziai)
 
 
 # print(isrikiuoti_nuo_galo("Vienas du trys keturi"))
@@ -151,6 +151,8 @@ def patikrinti_data(sukaktis, now=datetime.datetime.now()):
     print("Praėjo sekundžių: ", sekundes)
     return metai, menesiai, savaites, dienos, valandos, minutes, sekundes
 
-
-# patikrinti_data("2000-01-01 12:12:12")
+# now = datetime.datetime.strptime("2023-04-06 15:33:21", "%Y-%m-%d %H:%M:%S")
+# print(patikrinti_data(sukaktis="2000-01-01 12:12:12", now=now))
 # patikrinti_data("1991-03-11 12:12:12")
+
+print(datetime.datetime.today())

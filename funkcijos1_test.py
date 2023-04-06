@@ -1,156 +1,58 @@
-# Sukurkite ir išsibandykite funkcijas, kurios:
-
-# 1. Gražinti trijų paduotų skaičių sumą.
-
-def skaiciu_suma(sk1, sk2, sk3):
-    return sk1 + sk2 + sk3
-
-
-# print(skaiciu_suma(45, 5, 6))
-
-
-# 2. Gražintų paduoto sąrašo iš skaičių, sumą.
-
-def saraso_suma(sarasas):
-    suma = 0
-    for skaicius in sarasas:
-        suma += skaicius
-    return suma
-
-
-# sarasas = [4, 5, 78, 8]
-# print(saraso_suma(sarasas))
-
-
-# 3. Atspausdintų didžiausią iš kelių paduotų skaičių (panaudojant *args).
-
-# def didziausias_skaicius(*args):
-#     didziausias = args[0]
-#     for sk in args:
-#         if sk > didziausias:
-#             didziausias = sk
-#     return didziausias
-
-# arba
-
-def didziausias_skaicius(*args):
-    return max(args)
-
-
-# print(didziausias_skaicius(5, 8, 789, 94, 78))
-
-
-# 4. Gražintų paduotą stringą atbulai.
-
-def stringas_atbulai(stringas):
-    return stringas[::-1]
-
-
-print(stringas_atbulai("Donatas Noreika"))
-
-
-# 5. Atspausdintų, kiek paduotame stringe yra žodžių, didžiųjų ir mažųjų raidžių, skaičių.
-
-def info_apie_sakini(stringas):
-    print(f"Šiame sakinyje yra {len(stringas.split())} žodžių")
-    didziosios = 0
-    mazosios = 0
-    skaiciai = 0
-    for simbolis in stringas:
-        if simbolis.isupper():
-            didziosios += 1
-        if simbolis.islower():
-            mazosios += 1
-        if simbolis.isnumeric():
-            skaiciai += 1
-    return f"Didžiosios: {didziosios}, mažosios: {mazosios}, skaičiai: {skaiciai}"
-
-
-# info_apie_sakini("Laba diena laba diena lab 522")
-
-
-# 6. Gražintų sąrašą tik su unikaliais paduoto sąrašo elementais.
-
-def unikalus_sarasas(sarasas):
-    naujas_sarasas = []
-    for skaicius in sarasas:
-        if skaicius not in naujas_sarasas:
-            naujas_sarasas.append(skaicius)
-    return naujas_sarasas
-
-
-# print(unikalus_sarasas([4, 5, "Labas", 6, "Labas", True, 5, True, 10]))
-
-
-# alternatyva:
-
-def unique_only(*args):
-    return list(set(args))
-
-
-# 7. Gražintų, ar paduotas skaičius yra pirminis.
-
-# n = int(input("Įveskite skaičių "))
-
-
-def ar_pirminis(skaicius):
-    if skaicius > 1:
-        for num in range(2, skaicius):
-            if skaicius % num == 0:
-                return False
-        return True
-    return False
-
-
-# print(ar_pirminis(n))
-
-
-# 8. Išrikiuotų paduoto stringo žodžius nuo paskutinio iki pirmojo
-
-def isrikiuoti_nuo_galo(sakinys):
-    zodziai = sakinys.split()[::-1]
-    return " # ".join(zodziai)
-
-
-# print(isrikiuoti_nuo_galo("Vienas du trys keturi"))
-
-# 9. Gražina, ar paduoti metai yra keliamieji, ar ne.
-
-import calendar
-
-
-def ar_keliamieji(metai):
-    return calendar.isleap(metai)
-
-
-# print(ar_keliamieji(2020))
-# print(ar_keliamieji(2100))
-# print(ar_keliamieji(2000))
-
-# 10. Gražina, kiek nuo paduotos sukakties praėjo metų, mėnesių, dienų, valandų, minučių, sekundžių.
-
+import unittest
+from funkcijos1 import (skaiciu_suma,
+                        saraso_suma,
+                        didziausias_skaicius,
+                        stringas_atbulai,
+                        info_apie_sakini,
+                        unikalus_sarasas,
+                        ar_pirminis,
+                        isrikiuoti_nuo_galo,
+                        ar_keliamieji,
+                        patikrinti_data)
 import datetime
 
+class TestFunkcijos1(unittest.TestCase):
+    def test_skaiciu_suma(self):
+        self.assertEqual(56, skaiciu_suma(45, 5, 6))
+        self.assertEqual(48, skaiciu_suma(16, 16, 16))
+        self.assertEqual(2, skaiciu_suma(-5, 5, 2))
 
-def patikrinti_data(sukaktis, now=datetime.datetime.now()):
-    ivesta_data = datetime.datetime.strptime(sukaktis, "%Y-%m-%d %X")
-    skirtumas = now - ivesta_data
-    metai = skirtumas.days // 365
-    menesiai = skirtumas.days / 365 * 12
-    savaites = skirtumas.days // 7
-    dienos = skirtumas.days
-    valandos = skirtumas.total_seconds() / 3600
-    minutes = skirtumas.total_seconds() / 60
-    sekundes = skirtumas.total_seconds()
-    print("Praėjo metų: ", metai)
-    print("Praėjo mėnesių: ", menesiai)
-    print("Praėjo savaičių: ", savaites)
-    print("Praėjo dienų: ", dienos)
-    print("Praėjo valandų: ", valandos)
-    print("Praėjo minučių: ", minutes)
-    print("Praėjo sekundžių: ", sekundes)
-    return metai, menesiai, savaites, dienos, valandos, minutes, sekundes
+    def test_saraso_suma(self):
+        masyvas1 = [6, 5, 54, 4]
+        self.assertEqual(69, saraso_suma(masyvas1))
+        masyvas2 = [16, 16, 16]
+        self.assertEqual(48, saraso_suma(masyvas2))
+        masyvas2 = [99, -16, 15]
+        self.assertEqual(98, saraso_suma(masyvas2))
 
+    def test_didziausias_skaicius(self):
+        self.assertEqual(4545, didziausias_skaicius(5, 45, 787, 4545, 12))
+        self.assertEqual(667, didziausias_skaicius(667, 454, 44, 45, 424))
 
-# patikrinti_data("2000-01-01 12:12:12")
-# patikrinti_data("1991-03-11 12:12:12")
+    def test_stringas_atbulai(self):
+        self.assertEqual("akieroN satanoD", stringas_atbulai("Donatas Noreika"))
+
+    def test_info_apie_sakini(self):
+        self.assertEqual("Didžiosios: 1, mažosios: 20, skaičiai: 3", info_apie_sakini("Laba diena laba diena lab 522"))
+
+    def test_unikalus_sarasas(self):
+        self.assertEqual([4, 5, 'Labas', 6, True, 10], unikalus_sarasas([4, 5, "Labas", 6, "Labas", True, 5, True, 10]))
+
+    def test_ar_pirminis(self):
+        self.assertTrue(ar_pirminis(7))
+        self.assertTrue(ar_pirminis(11))
+        self.assertFalse(ar_pirminis(4))
+        self.assertFalse(ar_pirminis(9))
+
+    def test_isrikiuoti_nuo_galo(self):
+        self.assertEqual("keturi trys du Vienas", isrikiuoti_nuo_galo("Vienas du trys keturi"))
+
+    def test_ar_keliamieji(self):
+        self.assertTrue(ar_keliamieji(2000))
+        self.assertTrue(ar_keliamieji(1996))
+        self.assertFalse(ar_keliamieji(1993))
+        self.assertFalse(ar_keliamieji(2100))
+
+    def test_patikrinti_data(self):
+        now = datetime.datetime.strptime("2023-04-06 15:33:21", "%Y-%m-%d %H:%M:%S")
+        self.assertEqual((23, 279.3205479452055, 1213, 8496, 203907.3525, 12234441.15, 734066469.0), patikrinti_data("2000-01-01 12:12:12", now))
